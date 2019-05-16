@@ -17,17 +17,17 @@ void loop() { //ボーリング処理
     flag = 1; //10秒経過フラグ
   }
   if((millis() - timePrev500) >= 500){ //500ms経過
-    output = !output; //出力を反転
+    output =!output;
     digitalWrite(LED1_PIN,output);
-    timePrev500 = millis(); //時間情報の更新
+    timePrev500 = millis();
   }
   if((millis() - timePrev1000) >= 1000){ //1000ms経過
     int sensorvalue = analogRead(A0); //A0ピンのAD変換結果を取得
     float vo = sensorvalue*(5.0/1024.0);
     float L =222*vo; //照度値に変換
     Serial.println(L); //シリアルモニタに表示
-    delay(1); //安定用
-    timePrev1000 = millis(); //時間の更新
+    delay(1);
+    timePrev1000 = millis();
     if ( flag == 1){ //10秒経過したら
       digitalWrite(LED2_PIN,HIGH); //LED2_PINを点灯させる
       flag = 0; //値を初期化
