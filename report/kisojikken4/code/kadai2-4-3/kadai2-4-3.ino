@@ -1,8 +1,7 @@
-#include<MsTimer2.h>
 const int LED_PIN = 9; //LEDをD9に定義
 volatile int flag = LOW; //フェードイン,フェードアウト判定用の変数を用意
 int i = 0;
-
+unsigned long timePrev = 0;//時間を格納
 /* 初期設定 */
 void setup() {
   pinMode(LED_PIN,OUTPUT); //D9を出力に設定
@@ -21,7 +20,10 @@ void loop() {
     }
     analogWrite(LED_PIN,i);
     i++;
-    delay(3000/255);
+	 timePrev = millis();
+	 while(millis() - timePrev <= 3000/255){
+		 //3000/255秒待つ
+	 }
   }
    else{
     if( i == 0 ){
@@ -29,7 +31,10 @@ void loop() {
     }
     analogWrite(LED_PIN,i);
     i--;
-    delay(3000/255);
+	 timePrev = millis();
+	 while(millis() - timePrev <= 3000/255){
+		 //3000/255秒待つ
+	 }
   }
 }
 void blink() { //割り込みの条件にあわせLEDがフェードイン・フェードアウトを繰り返す
