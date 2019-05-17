@@ -1,5 +1,5 @@
 const int LED_PIN = 13;
-const int SW_PIN = 4;
+const int SW_PIN = 2;
 int sw1;
 void setup() {
   pinMode(LED_PIN,OUTPUT);

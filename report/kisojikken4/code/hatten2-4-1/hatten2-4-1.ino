@@ -37,6 +37,6 @@ void loop() { //ボーリング処理
   if((millis() - timePrev500) >= 500){
      digitalWrite(LED1_PIN,output);
      timePrev500 = millis();
-     output = !output
+     output = !output;
   }
 }
