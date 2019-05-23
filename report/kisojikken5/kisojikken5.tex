@@ -1,0 +1,192 @@
+\documentclass{jarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{here}
+\usepackage{listings,jlisting}
+
+
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
+
+\title{{システム実験}\\基礎実験5レポート}
+\author{6119019056 山口力也}
+\date{2019/05/24日提出}
+
+\begin{document}
+\maketitle
+
+\section{基礎実験第五回の概要}
+基礎実験第5回目の実験の目的,実験した実験の概要,および理解した事柄を100~200字程度で説明せよ.
+
+本実験では,Arduinoの持つ通信機能のうちシリアル通信に関する実験を行う.シリアル通信は,古くからコンピュータ間の通信に使用されてきた通信方式であり,多くのマイコンんいしリアル通信機能が搭載されている.シリアル通信を用いることで,マイコンの外部に接続されたデバイスと決められたプロトコルに従って通信を行える.以下に実験目標を示す.
+\begin{itemize}
+実験目標:
+\item シリアル通信の原理を理解する.
+\item シリアル通信を使いこなす.
+\item マイコンとパソコン間でデータを送受信できる.
+\item センサのデータをマイコン・パソコンで処理できる.
+\item ディジタルI/O,AD変換,割り込みなどを統合的に扱える.
+
+\end{itemize}
+
+\section{復習と確認}
+ブレッドボード上に回路を実装する際の注意点を説明せよ.また,C言語によるプログラムとスケッチの違いについて説明せよ.さらに,シリアルモニタ使用に関する注意点を述べよ.
+
+汎用的な回路を同じブレッドボード上に実装することが度々あるが,関係のない回路と繋がらないように注意するべきである.また,LEDなどを実装する際はLEDと電源の間に電流制限抵抗を用いることも忘れてはならない.C言語によるプログラムとスケッチの違いについては,実装する際にある.C言語の場合実行ファイルを実行したときのみプログラムが実行されるが,スケッチの場合一度マイコンにスケッチを書き込むと電源を入れるたび書き込んだスケッチが動作する.そのため,例えば単に電源を入れただけと思っていても前回書き込んだプログラムが実行されている可能性があるので注意する必要がある.
+シリアルモニタ使用に関しては,いくつか注意点がある.シリアル通信使用する際,コンピュータとのデータ転送レートを設定する必要がある.Arduinoではデフォルトで9600bpsが設定されているが,マイコン側の転送レートを変更した場合にはパソコン側のシリアルモニタの転送レート設定も同様に変更しないと正しくデータを受信できない.
+
+\section{回路実装}
+演習2.5.3において実装したブレッドボード配線図を報告せよ.
+
+以下図\ref{fig:2-5-3bread}に実装したブレッドボード配線図を示す.
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=7.0cm]{images/2-5-3bread.png}
+\caption{演習2.5.3で実装した回路の配線図}
+\label{fig:2-5-3bread}
+\end{center}
+\end{figure}
+
+\section{マイコンの受信データに対応したLEDの状態変化およびマイコンからLEDの状態を送信}
+課題2.5.1において実装したスケッチを報告せよ.また,スケッチ作成において工夫した点を記せ.さらに,マイコンが受信した文字を数字に変換して処理する方法を提案せよ.
+
+以下ソースコード\ref{code:kadai2-5-1}に実装したスケッチを示す.
+\begin{lstlisting}[caption = 課題2.5.1,label=code:kadai2-5-1][H]
+
+\end{lstlisting}
+
+マイコンが受信した文字を数字に変換するには,ASCIIテーブルから変換する必要がある.例えばマイコンが10進数で"65"という文字を受信した場合,ASCIIテーブルから変換されて,"A"という文字になる.数字に変換したい場合はAという文字をもう一度"65"という文字に変換してやる必要がある.
+
+\section{温度センサを用いたマイコンの温度情報のPCへの送信およびそのグラフ化}
+演習2.5.6において作成したグラフを報告せよ.
+
+以下図\ref{fig:enshu2-5-6}に作成したグラフを示す.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=7.0cm]{images/enshu2-5-6.png}
+\caption{演習2.5.6で作成したグラフ}
+\label{fig:enshu2-5-6}
+\end{center}
+\end{figure}
+
+\section{millis関数によるデータ解析区間の設定,温度センサ情報のPCへの送信および温度情報グラフ化}
+演習2.5.7において作成したグラフを報告せよ.
+
+以下図\ref{fig:enshu2-5-7}に作成したグラフを示す.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=7.0cm]{images/enshu2-5-7.png}
+\caption{演習2.5.7で作成したグラフ}
+\label{fig:enshu2-5-7}
+\end{center}
+\end{figure}
+
+\section{温度センサを用いた解析済み温度情報のマイコンのPCへの送信およびグラフ化}
+課題2.5.2で実装したスケッチおよび作成したグラフを報告せよ.また,工夫した点を記せ.演習2.5.6で作成されたグラフとの違いを説明せよ.
+
+以下ソースコード\ref{code:kadai2-5-2}に実装したスケッチを示す.
+\begin{lstlisting}[caption = 課題2.5.2,label=code:kadai2-5-2][H]
+
+\end{lstlisting}
+工夫した点は,
+
+また,以下図\ref{fig:kadai2-5-2}に作成したグラフを示す.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=7.0cm]{images/kadai2-5-2.png}
+\caption{課題2.5.2で作成したグラフ}
+\label{fig:kadai2-5-2}
+\end{center}
+\end{figure}
+
+演習2.5.6で作成された図\ref{fig:enshu2-5-6}との違いは,
+
+\section{照度センサによるマイコンからPCヘの解析済み温度情報の送信,グラフ化および解析結果に対応したLEDの発光}
+課題2.5.3で実装したスケッチおよび作成したグラフを報告せよ.また,工夫した点を記せ.さらに,データ解析(区間平均の算出)の必要性について考察せよ.
+
+以下ソースコード\ref{code:kadai2-5-3}に実装したスケッチを示す.
+\begin{lstlisting}[caption = 課題2.5.3,label=code:kadai2-5-3][H]
+
+\end{lstlisting}
+工夫した点は,
+
+また,以下図\ref{fig:kadai2-5-2}に作成したグラフを示す.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=7.0cm]{images/kadai2-5-3.png}
+\caption{課題2.5.3で作成したグラフ}
+\label{fig:kadai2-5-3}
+\end{center}
+\end{figure}
+
+データ解析の必要性について,
+
+\section{発展課題2.5.1:マイコンのデータ送受信の確認}
+以下ソースコード\ref{code:hatten2-5-1}に実装したスケッチを示す.
+
+\begin{lstlisting}[caption = 発展課題2.5.1,label=code:hatten2-5-1][H]
+void setup() {
+  Serial.begin(9600); //転送レート9600に設定
+}
+
+void loop() {
+  if(Serial.available() > 0){ //パソコンからデータを受信
+    int receive = 0; //受信データ
+    int birthday[4] = {0}; //表示用配列
+    int kekka = 0;
+    int i = 0; //配列の要素カウント用
+    while(1){
+      if(Serial.available() > 0){ //受信したら
+        receive = Serial.read();
+        if( 47 < receive && receive <58){ //受信データが数字のASCIIコードの時
+          receive -= 48; //数字に変換
+          birthday[i] = receive; //配列に入れる
+          i++; //配列の要素をずらす
+        }
+        if( receive == 10){ //改行が来たら
+          break; //ループを抜ける
+        }
+      }
+    }
+    birthday[2] += birthday[0]; //誕生日の2桁目に誕生月の2桁目を足す
+    if (birthday[3] + birthday[1] >= 10){//もし誕生日の1桁目と誕生月の1桁目の和が10以上なら
+      birthday[2]++; //繰り上げで誕生日の2桁目に1足す
+      birthday[3] += birthday[1] -10; //誕生日の1桁目は足した数-10
+    }
+    else{ //誕生日の1桁目と誕生月の1桁目の和が10未満なら
+      birthday[3] += birthday[1]; //誕生日の1桁目に誕生月の1桁目を足す
+    }
+    for ( i = 0; i < 4 ; i++){
+      Serial.print(birthday[i]); //シリアルモニタに配列の要素を表示
+    }
+    Serial.println(); //改行
+  }
+}
+\end{lstlisting}
+工夫した点は,シリアルモニタから送信された文字を一度配列に格納したところである.普通にSerial.read()した場合,誕生月を誕生日に足す処理をする際煩雑なコードになってしまう.その対策として一度配列に格納し処理しやすい環境を作ってから処理をし,また繰り上げにもif文で対応できるようにした.
+
+\section{発展課題2.5.2:創生課題}
+
+こちらは時間が足りずに出来なかった.
+
