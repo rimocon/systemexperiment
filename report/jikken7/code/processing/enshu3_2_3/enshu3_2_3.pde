@@ -8,43 +8,43 @@ int time, time_min, time_max;
 int period;
 void setup()
 {
-	size(1200, 500);
-	port = new Serial(this, "/dev/ttyACM0", 9600);
-	period = 20000;
-	// 横軸の範囲は 20,000ms 間隔
-	time_min = 0;
-	// 横軸の範囲の初期値
-	time_max = period;// 横軸の範囲の初期値
-	x = 0; y = 0;
-	time = 0;
-	background(255);
-	frameRate(60);
+size(1200, 500);
+port = new Serial(this, "/dev/ttyACM1", 9600);
+period = 20000;
+// 横軸の範囲は 20,000ms 間隔
+time_min = 0;
+// 横軸の範囲の初期値
+time_max = period;// 横軸の範囲の初期値
+x = 0; y = 0;
+time = 0;
+background(255);
+frameRate(60);
 }
 void draw()
 {
-	if ( time > time_max ) { // グラフの再描画
-		time_min += period; // 横軸の範囲の更新
-		time_max += period; // 横軸の範囲の更新
-		background(255);
-	}
-	x = (int)map( time, time_min, time_max, 0, width ); // x 座標値
-	y = (int)map( val, 0, 1024, height, 0 );
-	// y 座標値
-	stroke(255, 0, 0);
-	ellipse(x, y, 5, 5);
+if ( time > time_max ) { // グラフの再描画
+time_min += period; // 横軸の範囲の更新
+time_max += period; // 横軸の範囲の更新
+background(255);
+}
+x = (int)map( time, time_min, time_max, 0, width ); // x 座標値
+y = (int)map( val, 174, 184, height, 0 );
+// y 座標値
+stroke(255, 0, 0);
+ellipse(x, y, 5, 5);
 }
 void serialEvent(Serial p) {
-	if ( p.available() >= 7 ) {
-		if ( p.read() == ’H’ ) {
-			byte1 = p.read();
-			byte2 = p.read();
-			byte3 = p.read();
-			byte4 = p.read();
-			time = (byte1 << 24 ) + (byte2 << 16 ) + (byte3 << 8 ) + byte4; // 4 バイトデータ
-			high = p.read();
-			low = p.read();
-			val = (high << 8 ) + low; // 2 バイトデータ
-			p.clear();
-		}
-	}
+if ( p.available() >= 7 ) {
+if ( p.read() == 'H') {
+byte1 = p.read();
+byte2 = p.read();
+byte3 = p.read();
+byte4 = p.read();
+time = (byte1 << 24 ) + (byte2 << 16 ) + (byte3 << 8 ) + byte4; // 4 バイトデータ
+high = p.read();
+low = p.read();
+val = (high << 8 ) + low; // 2 バイトデータ
+p.clear();
+}
+}
 }

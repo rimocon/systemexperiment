@@ -33,39 +33,38 @@ void draw()
 {
 	if ( time > time_max ) { // グラフの再描画
 		background(255); //背景を白にクリア
-    /*
-    count = 0; //カウントを初期化
-    while ( count < (t_max - t_min +1)){ //y軸を再表示
-      textSize(15); //テキストサイズを'15'に設定
+    
+    count = 0;
+    while ( count < (t_max - t_min + 1)){
+      textSize(13); //テキストサイズを'15'に設定
       fill(0); //文字の色を黒に設定
-      text("T=",30,500 - 480/(t_max - t_min)*count - 10); //"T="を表示
-      text(t_min+count,50,500 - 480/(t_max - t_min)*count - 10); //20度から31度まで表示
+      text("T=",110,150 - 150/(t_max - t_min)*count + 100); //"T="を表示
+      text(t_min+count,130,150 - 150/(t_max - t_min)*count +100); //20度から31度まで表示
       noFill(); //終了用
       stroke(0, 0, 255); //文字の色を青に設定
-      line(0, 500 - 480/(t_max - t_min)*count-10, width,500 - 500/(t_max - t_min)*count); //y軸の線を描画
-      count ++; //カウントを増やす
+      line(x_min, 150 - 150/(t_max - t_min)*count + 100, x_max,150 - 150/(t_max - t_min)*count+ 100); //y軸の線を描画
+      count++;
     }
-    */
     stroke(0,0,0);
     rect(x_min,y_min,(x_max - x_min) ,(y_max - y_min));
     time_min += period; // 横軸の範囲の更新
     time_max += period; // 横軸の範囲の更新
 	}
 	x = (int)map( time, time_min, time_max, x_min, x_max ); // x 座標値
-	y = (int)map( f, t_min, t_max, y_min, y_max ); // y 座標値
+	y = (int)map( f, t_min, t_max, y_max, y_min ); // y 座標値
   /***************y軸の表示部分********************/
-  /*
-  textSize(15); //テキストサイズを'15'に設定
+  
+  textSize(13); //テキストサイズを'15'に設定
   fill(0); //文字の色を黒に設定
-  text("T=",30,500 - 480/(t_max - t_min)*count - 10); //"T="を表示
-  text(t_min+count,50,500 - 480/(t_max - t_min)*count - 10); //20度から31度まで表示
+  text("T=",110,150 - (150/(t_max - t_min)*count )+ 100); //"T="を表示
+  text(t_min+count,130,150 - 150/(t_max - t_min)*count +100); //20度から31度まで表示
   noFill(); //終了用
   stroke(0, 0, 255); //文字の色を青に設定
-  line(0, 500 - 480/(t_max - t_min)*count-10, width,500 - 500/(t_max - t_min)*count); //y軸の線を描画
-  if ( count < (t_max - t_min +1)){ //31度まで表示していないなら
+  line(x_min, 150 - 150/(t_max - t_min)*count + 100, x_max,150 - 150/(t_max - t_min)*count+ 100); //y軸の線を描画
+  if ( count < (t_max - t_min)){ //31度まで表示していないなら
     count ++; //カウントを1増やす
   }
-  */
+  
   /*******************円を表示********************/
   stroke(0,0,0);
   noFill();
