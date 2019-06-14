@@ -1,41 +1,43 @@
 int Luxsensor, Tempsensor;
 long int Luxsum,Tempsum,count;
 float Luxaverage,Tempaverage;
-int intLuxaverage,intTempaverage;
+unsigned int intLuxaverage,intTempaverage;
 unsigned long int timeNow,timePrev;
 int byte1,byte2,byte3,byte4;
 int inByte; // Processing から の送信要求を 受け 取る 変数
 void setup(){
   Serial.begin(9600);
+  timePrev = millis();
+  Luxsum = 0;
+  Tempsum = 0;
+  count = 0;
 }
 void loop(){
-  if (Serial.available() > 0) {
-    count = 0;
-    Luxsum = 0;
-    Tempsum = 0;
-    while(1) {
-      timeNow = millis();
-      if ( timeNow - timePrev >= 50 ) { //50ms経つまで
-      Luxsensor = analogRead(0);
-      Tempsensor = analogRead(1);
-      Luxsum += Luxsensor;
-      Tempsum += Tempsensor;
-      count ++;
-      }
-      else{
-        break;
-      }
+    timeNow = millis();
+    Luxsensor = analogRead(0);
+    Tempsensor = analogRead(1);
+    if ( (timeNow - timePrev) <= 50 ) { //50ms経つまで
+        Luxsum += Luxsensor;
+        Tempsum += Tempsensor;
+        count ++;
     }
-    Luxaverage = Luxsum / count;
-    Tempaverage = Tempsum / count;
-    intLuxaverage = (int)(Luxaverage * 100);
-    intTempaverage = (int)(Tempaverage * 100);
-    inByte = Serial.read(); // 受信済みの信号を 読み込む ( 受信バッ フ ァ が空に な る )
-    Serial.write(252); //はじめの位置確認
-    Serial.write(intLuxaverage / 0x20);
-    Serial.write(intLuxaverage % 0x20);
-    Serial.write(intTempaverage / 0x20);
-    Serial.write(intTempaverage % 0x20);
+    else {
+    Luxaverage = (float)Luxsum / (float)count *100;
+    Tempaverage = (float)Tempsum / (float)count *100;
+    intLuxaverage = (int)(Luxaverage);
+    intTempaverage = (int)(Tempaverage);
+    inByte = Serial.read();
+    Serial.write(0x20); //はじめの位置確認
+    Serial.write(intLuxaverage / 0x50);
+    Serial.write(intLuxaverage % 0x50);
+    Serial.write(intTempaverage / 0x50);
+    Serial.write(intTempaverage % 0x50);
+    /*
+    Serial.println(Tempaverage);
+    Serial.println(Luxaverage);
+    Serial.println(intTempaverage);
+    Serial.println(intLuxaverage);
+    */
     byte1 = timeNow >> 28;
     byte2 = timeNow >> 21;
     byte3 = timeNow >> 14;
@@ -46,5 +48,8 @@ void loop(){
     Serial.write(byte4 & 0x7F);  //4byte目
     Serial.write(timeNow & 0x7F); //5byte目
     timePrev = timeNow;
-  }
+    count = 0;
+    Luxsum = 0;
+    Tempsum = 0; 
+    }
 }
