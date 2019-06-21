@@ -19,7 +19,7 @@ void countUp() {
     unsigned long timen = millis();
     motrpm = 1000.0*60.0/(float)(timen-timep);
     if( (motrpm >= 0) && (motrpm < 5000)){
-      motrpmf = (3.0*motrpmf+motrpm)/4.0;
+      motrpmf = (7.0*motrpmf+motrpm)/8.0;
     }
     timep=timen;
     isD2High=false;

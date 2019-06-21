@@ -32,7 +32,7 @@ void settings() {
 }
 
 void setup() {
-  port = new Serial(this,"/dev/ttyACM1",115200);
+  port = new Serial(this,"/dev/ttyACM0",115200);
   port.clear();
   frameRate(50);
 }
