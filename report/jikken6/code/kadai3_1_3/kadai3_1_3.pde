@@ -1,6 +1,6 @@
 import processing.serial.*; // Serial ライブラリを取り込む
 Serial port; // Serial クラスのオブジェクトを宣言
-int val,count,x,y;
+int val,count,x,y; //変数宣言
 void setup()
 {
   size(800,300); // サイズ 800 × 300 のウィンドウ生成
@@ -9,18 +9,18 @@ void setup()
   count = 0;
   x = 0;
   y = 0;
-  background(255); // white
+  background(255); //背景白 
 }
 void draw()
 {
-  stroke(255,0,0);
-  strokeWeight(5);
-  x = count;
-  y = (255 - val)*300/255;
-  point(x,y);
-  if( count == 800){
-    count = 0;
-    background(255); // white
+  stroke(255,0,0); //赤色
+  strokeWeight(5); //太さを5
+  x = count; //countを代入
+  y = (255 - val)*300/255; //val=0で300,val=255で0
+  point(x,y); //点を描画
+  if( count == 800){ //右端についたら
+    count = 0; //初期化
+    background(255); //背景をクリア 
   }
   println("R"); // 描画タイミング(確認用)
 }
