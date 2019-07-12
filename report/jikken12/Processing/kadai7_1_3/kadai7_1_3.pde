@@ -16,7 +16,7 @@ void setup() {
   frameRate(60); //draw()を1秒間に60回呼び出す
   size(800,400); //600*200pxのウィンドウを作成
   background(255,255,255); //背景を白で描画
-  port = new Serial(this, "/dev/ttyACM0",9600); //Serialクラスのインスタンスを生成
+  port = new Serial(this, "/dev/ttyACM1",9600); //Serialクラスのインスタンスを生成
   d_bef = 0; //初期化
   d_now = 0; //初期化
   count = 0;
@@ -37,8 +37,8 @@ void draw() {
   line(0,0,400 * cos(radians(angle)),-400 * sin(radians(angle)));
   stroke(255,0,0); //線の色を赤に
   d_now = map(distance,0,60,0,400); //距離を0~60から0~400に変える
-  println(d_now); //確認用
-
+  //println(d_now); //確認用
+  println(count); //確認用
   if( d_now > 90 ) { //もし範囲が90以上なら
     if ( d_bef_bef == d_bef && d_bef == d_now){ //過去2回と現在の値を比較してすべて同じだったら
       //対象物として円を描画
@@ -53,11 +53,12 @@ void draw() {
   d_bef_bef = d_bef; //前回の値を前々回の値として格納
   d_bef = d_now; //現在の値を過去の値として格納
 
-  fill(0);
-  textSize(40);
-  text(count,-350,-350);
+
   if ( angle == 180 || angle == 0 ) {
     background(255,255,255); //180度か0度になったら画面を初期化
+    fill(0);
+    textSize(40);
+    text(count,-350,-350);
     count = 0; //カウントを初期化
   }
 }
