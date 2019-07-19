@@ -9,7 +9,7 @@ void setup() {
    // The image file must be in the data folder of the current sketch 
   // to load successfully
   img = loadImage("xymapF.png");  // Load the image into the program  
-  myPort = new Serial(this,"/dev/ttyACM0",9600);
+  myPort = new Serial(this,"COM3",9600);
   myPort.bufferUntil('\n');
 }
 void draw() { //受信した値で描画

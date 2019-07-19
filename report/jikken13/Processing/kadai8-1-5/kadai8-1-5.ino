@@ -25,8 +25,7 @@ void setup(){
   CalibrationColorSensor();
   }
 void loop(){
-  timenow = millis();
-  timeprev = timenow;
+  timeprev = millis();
   readRGB();
  
   Serial.print(dataR_min);Serial.print(",--> ");Serial.println(dataR_max);
@@ -46,7 +45,7 @@ void loop(){
   Serial.print(red); Serial.print(","); //DEC: ascii code で 10 進表記
   Serial.print(green); Serial.print(",");
   Serial.println(blue);
-
+  timenow = millis();
   Serial.println(timenow - timeprev);
   
   
