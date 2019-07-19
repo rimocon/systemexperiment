@@ -1,0 +1,116 @@
+\documentclass{jarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{here}
+\usepackage{listings,jlisting}
+
+
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
+
+\title{{システム実験}\\実験14回レポート}
+\author{6119019056 山口力也}
+\date{2019/07/26日提出}
+
+\begin{document}
+\maketitle
+\section{演習}
+
+\subsection{演習8.2.2}
+
+\begin{table}[H]
+\caption{カラーパターンの各色のRGB値}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|c|}\hline 
+			& \multicolumn{3}{c|}{手動キャリブレーション後}&\multicolumn{3}{c|}{自動キャリブレーション後} \\ \hline 
+			& Red値 & Green値 & Blue値 & Red値 & Green値 & Blue値 \\ \hline 
+		黒 & 3 & 4 & 3 & 13 & 12 & 0  \\ \hline
+		白 & 219 & 306 & 225 & 469 & 342 & 384  \\ \hline 
+		赤 & 136 & 39 & 23 & 232 & 45 & 52  \\ \hline
+		緑 & 49 & 150 & 62& 93 & 252 & 113  \\ \hline
+		青 & 53 & 97 & 145 & 44 & 75 & 182  \\ \hline
+		シアン & 41 & 89 & 74 & 138 & 261 & 291  \\ \hline
+		マゼンタ & 124 & 74 & 94 & 255 & 144 & 206  \\ \hline
+		イエロー & 187 & 259 & 64 & 326 & 303 & 117  \\ \hline
+		\end{tabular}
+	\end{center}
+\label{table:enshu8-2-3} 
+\end{table}
+
+\subsection{演習8.2.3}
+
+\begin{table}[H]
+\caption{カラーパターンの各色に対するRGB値とその平均}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline 
+		& \multicolumn{4}{c|}{Red値} & \multicolumn{4}{c|}{Green値} & \multicolumn{4}{c|}{Blue値} \\ \hline
+			& 1 & 2 & 3 &平均& 1 & 2 & 3 &平均& 1 & 2 & 3 &平均 \\ \hline
+		黒 & 0 & 6 & 4 & 3.3& 1 & 6 & 4 & 3.7& 0 & 5 & 3 & 2.7 \\ \hline
+		白 &262&264&264&263.3&360&360&375&365&261&262&262&262.7 \\ \hline
+		\end{tabular}
+	\end{center}
+\label{table:enshu8-2-5} 
+\end{table}
+
+
+\section{課題}
+
+\subsection{課題8.2.2}
+
+自動キャリブレーション時間の影響を調べるために,RGB値の最小,最大を決める時間を1秒と10秒でそれぞれ設定し,黒と白のRGB値を比較した.
+以下表\ref{table:kadai8-2-2}に結果を示す.
+\begin{table}[H]
+\caption{カラーパターンの各色のRGB値}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|c|}\hline 
+			& \multicolumn{3}{c|}{自動キャリブレーション(1s)}&\multicolumn{3}{c|}{自動キャリブレーション(10s)} \\ \hline 
+			& Red値 & Green値 & Blue値& Red値 & Green値 & Blue値 \\ \hline
+		黒 & 3 & 4 & 3 & 13 & 88 & 14 \\	 \hline
+		白 & 73& 77& 14& 498& 506& 55\\ \hline 
+		\end{tabular}
+	\end{center}
+\label{table:kadai8-2-2} 
+\end{table}
+
+
+\subsection{課題8.2.3}
+
+
+\subsection{課題8.2.4}
+
+\begin{table}[H]
+\caption{カラーパターンの各色に対するRGB値とその平均}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline 
+		& \multicolumn{4}{c|}{Red値} & \multicolumn{4}{c|}{Green値} & \multicolumn{4}{c|}{Blue値} \\ \hline
+			& 1 & 2 & 3 &平均& 1 & 2 & 3 &平均& 1 & 2 & 3 &平均 \\ \hline
+		黒 & 0 & 6 & 4 & 3.3& 1 & 6 & 4 & 3.7& 0 & 5 & 3 & 2.7 \\ \hline
+		白 &262&264&264&263.3&360&360&375&365&261&262&262&262.7 \\ \hline
+		赤 &157&152&150& 153 &75 &75 & 75& 75& 15& 15& 13& 14.3 \\ \hline
+		緑 & 44& 54 &47& 3.3 &126&132&129& 3.7& 56&45& 47&  \\ \hline
+		青 & 0 & 6 & 4 & 3.3& 1 & 6 & 4 & 3.7& 0 & 5 & 3 & 2.7 \\ \hline
+　シアン & 0 & 6 & 4 & 3.3& 1 & 6 & 4 & 3.7& 0 & 5 & 3 & 2.7 \\ \hline
+ イエロー& 0 & 6 & 4 & 3.3& 1 & 6 & 4 & 3.7& 0 & 5 & 3 & 2.7 \\ \hline
+ マゼンタ& 0 & 6 & 4 & 3.3& 1 & 6 & 4 & 3.7& 0 & 5 & 3 & 2.7 \\ \hline
+		\end{tabular}
+	\end{center}
+\label{table:enshu8-2-5} 
+\end{table}
+
+
+\end{document}
