@@ -148,7 +148,7 @@ A =
 
 \lstinputlisting[caption = 課題8.1.4(Arduino),label=code:kadai8-1-4-a]{kadai8-1-4.ino}
 
-\lstinputlisting[caption = 課題8.1.4(Processing),label=code:kadai8-1-3-p]{kadai8_1_4.pde}
+\lstinputlisting[caption = 課題8.1.4(Processing),label=code:kadai8-1-4-p]{kadai8_1_3.pde}
 
 また,以下図\ref{fig:kadai8-1-4}にプログラムの実行結果の図を示す.
 
@@ -160,5 +160,14 @@ A =
 \end{center}
 \end{figure}
 
+正直課題8.1.3と課題8.1.4であまり違いがでなかった.キャリブレーションがうまくいっていないのか青や赤をセンシングしてもそれに近いところまでいかず中間の値で止まっていた.
+
+\subsection{課題8.1.5}
+色をセンシングしてから表示するまでにかかる内部処理の時間をmillis関数を用いて計測した.
+以下ソースコード\ref{code:kadai8-1-5-a}に作成したプログラムのソースコードを示す.
+
+\lstinputlisting[caption = 課題8.1.5(Arduino),label=code:kadai8-1-5-a]{./Processing/kadai8-1-5/kadai8-1-5.ino}
+
+計測すると大体200$\sim$203msだった.これより,計測に200msかかると考えると,センシングのタイミング(サンプリング周期)は400ms以上にするべきだと考えられる.
 
 \end{document}
