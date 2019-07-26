@@ -1,9 +1,10 @@
 import processing.serial.*;
 Serial myPort;
 float Red, Green, Blue;
+float judge;
 void setup() {
   size(640, 480);
-  myPort = new Serial(this, "/dev/ttyACM1", 9600);
+  myPort = new Serial(this, "COM3", 9600);
   //myPort = new Serial(this, "COM10", 9600);
   myPort.bufferUntil('\n'); //改行までメッセージ受信
 }
@@ -18,6 +19,17 @@ void draw() { //受信した値で描画
   text("Red=",10,10); text(int(Red),40,10);
   text("Green=",120,10); text(int(Green),160,10);
   text("Blue=",230,10); text(int(Blue),265,10);
+  
+  if(judge == 0.0 ) text("White",400,30);
+  else if(judge == 1.0 ) text("Black",400,30);
+  else if(judge == 2.0 ) text("Red",400,30);
+  else if(judge == 3.0 ) text("Green",400,30);
+  else if(judge == 4.0 ) text("Blue",400,30);
+  else if(judge == 5.0 ) text("Syan",400,30);
+  else if(judge == 6.0 ) text("Magenta",400,30);
+  else if(judge == 7.0 ) text("Yellow",400,30);
+       
+  
 }
 void serialEvent(Serial myPort) {
   String myString = myPort.readStringUntil('\n'); //シリアルバッファー読込み
@@ -30,6 +42,7 @@ void serialEvent(Serial myPort) {
       Red = data[0];
       Green = data[1]; //ここに Green の処理を入れる
       Blue = data[2]; //ここに Blue の処理を入れる
+      judge = data[3];
       /*
       // キャリブレーションあり
       Red = map(data[0], 7680, 40705, 0, 255); //下線部をシリアルモニタの最大値に変更
