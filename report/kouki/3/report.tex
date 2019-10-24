@@ -31,24 +31,28 @@
 \section{レポート11.3.5.1}
 演習11-3-4-1のプログラムの実行状況を説明せよ.その際,roll角の正負と加速度のy方向分の正負の関係,pitch角の正負と加速度のx方向分の正負の関係などを表にまとめよ.
 
-ロボットを左右に傾ける(roll角が$mp$に変化する)と$a_Y$の値が$mp$に変化した.ロボットを前後に傾けると(pitch角が$mp$に変化する)と$a_X$が$pm$値が変化した. \\
+ロボットを左右に傾ける(roll角が$\mp$に変化する)と$a_Y$の値が$\mp$に変化した.ロボットを前後に傾けると(pitch角が$\mp$に変化する)と$a_X$が$\pm$値が変化した. \\
 以下表\ref{tb:roll}と表\ref{tb:pitch}に結果を示す.
-\begin{table}{H}
+\begin{table}[H]
+\begin{center}
 \caption{roll角の変化による$a_Y$の変化}
 \label{tb:roll}
-    \begin{tabular}{c|c} \\
-    roll角 & $a_Y$ \\
-    $mp$ & $mp$ 
+    \begin{tabular}{|c|c|} \hline
+    roll角 & $a_Y$  \\ \hline 
+    $\mp$ & $\mp$ \\ \hline 
     \end{tabular}
+\end{center}
 \end{table}
 
-\begin{table}{H}
+\begin{table}[H]
+\begin{center}
 \caption{pitch角の変化による$a_X$の変化}
 \label{tb:pitch}
-    \begin{tabular}{c|c} \\
-    pitch角 & $a_X$ \\
-    $mp$ & $pm$ 
+    \begin{tabular}{|c|c|} \hline 
+    pitch角 & $a_X$ \\ \hline 
+    $\mp$ & $\pm$ \\ \hline 
     \end{tabular}
+\end{center}
 \end{table}
 
 \section{レポート11.3.5.2}
@@ -57,8 +61,9 @@
 
 以下ソースコードにソースコードを示す.
 
-\lstinputlisting[caption = 課題11.3.4-1,label=code:kadai1]{kadai1/}
+\lstinputlisting[caption = 課題11.3.4-1,label=code:kadai1]{zumo11-3/arduino/kadai11-3-1/zone3beta.ino}
 
+mode\_Gが1のとき山を探して直進する.その後山を見つけるとmode\_Gが2に移行してP制御で山を登る.頂上まできたらmode\_Gが3に移行して200ms直進してそこで止まる.mode\_Gが4~8に移行したあとその場で一回転しmode\_Gが9,10で山を下る.
 
 \section{レポート11.3.5.3}
 課題11-3-4-2-1で作成したArduinoスケッチのPI-制御の部分をリストとして報告せよ.大域変数,また,static変数を用いた場合は,その宣言部分や初期値も報告すること.また,設計パラメータの値も報告すること.課題11-3-4.2-2で作成したArduinoスケッチを日本語または英語で説明せよ.
@@ -68,3 +73,4 @@
 発展課題11-3-4-1で作成したProcessingスケッチの特徴的なスクリーンショットを図として掲載し,ロボットの状態をどのように表示しているか日本語または英語で説明せよ.その工夫点を説明せよ.
 
 こちらは時間内に実験を終えることができなかった.
+\end{document}
