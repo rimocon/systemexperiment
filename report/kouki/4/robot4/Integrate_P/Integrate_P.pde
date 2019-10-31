@@ -13,10 +13,10 @@ void setup() {
   size(1200, 400);
   background(255);
   count = 0;
-  println(Serial.list());
-  // String arduinoPort = Serial.list()[1];
-  // port = new Serial(this, arduinoPort, 9600 );
-  port = new Serial(this, "COM6", 9600 ); // シリアルポート名は各自の環境に合わせて適宜指定
+  println(Serial.list()[1]);
+  String arduinoPort = Serial.list()[1];
+  port = new Serial(this,"/dev/cu.usbserial-A90177EP", 9600 );
+  //port = new Serial(this, "/dev/cu.usbserial-A90177EP", 9600 ); // シリアルポート名は各自の環境に合わせて適宜指定
   red_p = 0; 
   green_p = 0; 
   blue_p = 0;

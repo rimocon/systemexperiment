@@ -1,5 +1,194 @@
-report 11-4-3
-(c)
-Kp = 1.9
-speed = 100
-(d)
+\documentclass{jarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{here}
+\usepackage{listings,jlisting}
+\usepackage{amsmath}
+
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
+
+\title{{システム実験}\\実験後期第4回レポート}
+\author{6119019056 山口力也}
+\date{2019/10/31日提出}
+\begin{document}
+\maketitle
+\section{レポート11.4.1}
+課題11.4.1(基本動作の確認)では,カラーセンサーのキャリブレーションを行なっている.具体的にどのようなキャリブレーションを行なっているか,プログラムの中身を読んで説明せよ. \\
+
+センサーが値を読み込むたびにそれぞれred,green,blueのセンサーの値を足して行き,それをカウントで割って行く.カウントもセンサーの値を読み込むたびに増えて行くためカラーセンサの読み取った値の平均値を調べていることになる.
+
+\section{レポート11.4.2}
+課題11.4.2(bang-bang制御によるライントレース)において,$K_p$の値の違いによってライントレースがどのように変化したか記述せよ.また,bang-bang制御の問題点を説明せよ. \\
+
+$K_p$の値を増やすとzumoの左右に動く幅が広がりより蛇行するようになった.$K_p$の値を小さくするとzumoの左右に動く幅は小さくなったが,急カーブなどは曲がれなくなった. \\
+bang-bang制御では目標値に対して常に一定の倍率($K_p$)でしか速度を制御できないので,目標値を超えるか目標値を下回るかでつねに振動してしまうのが問題点である.
+
+\section{レポート11.4.3}
+課題11-4.3(P制御によるライントレース)に関し,下記(a)~(d)ごとに分けてレポートを作成せよ.
+(a)作成したプログラムを報告せよ.
+(b)bang-bang制御とP制御の場合でライントレースの動作がどのように違ったか記述し,なぜそのようになるのか原理を説明せよ.(c)$K_p$の値の違いによってライントレースがどのように変化したか記述せよ.(d)高速かつスムーズにライントレースを行うことができた$K_p$の値とspeedの値を報告せよ.また,赤,緑,緑,赤の区間を通過した際のRGBの値の変化のグラフを貼り付け,どのような特徴があるか考察せよ.
+
+\subsection{(a)}
+以下ソースコード\ref{code:kadai3}に作成したプログラムを報告する.
+
+\begin{lstlisting}[caption = P制御,label=code:kadai3]
+if ( lightNow < (lightMin + lightMax) / 2.0 ) // 右回転
+    //P制御,lightNowの値に応じてspeedDiffの値を線形に変化
+    speedDiff = map(lightNow,lightMin,(lightMin+lightMax) / 2.0, -Kp*speed,0);
+else // 左回転
+//P制御,lightNowの値に応じてspeedDiffの値を線形に変化
+  speedDiff = map(lightNow,(lightMin+lightMax) / 2.0,lightMax,0,Kp*speed);
+  motorL_G = speed - speedDiff;
+  motorR_G = speed + speedDiff;
+\end{lstlisting}
+
+\subsection{(b)}
+bang-bang制御では目標値に対して振動していたが,P制御では目標値に近ければ近いほど操作量を減らすため,直線でも目標値に近づくと振動せずに一定の動きをしていた.
+\subsection{(c)}
+$K_p$の値が大きくなると急カーブには対応できるようになったが,少しbang-bang制御に近いような動きになった.$K_p$の値が小さいとスムーズではあるが急カーブなどは対応できなかった.
+
+\subsection{(d)}
+高速かつスムーズにライントレースできた値はそれぞれ$K_p$ = 1.9,speed=100であった.
+また,以下図\ref{fig:chokusen},図\ref{fig:kyokusen}に直線と曲線の場合の図を示す.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=7.0cm]{images/chokusen.png} 
+\caption{直線の場合}
+\label{fig:chokusen} 
+\end{center} 
+\end{figure} 
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=7.0cm]{images/kyokusen.png} 
+\caption{曲線の場合}
+\label{fig:kyokusen} 
+\end{center} 
+\end{figure} 
+曲線の方が全体的なRGB値が直線に比べて低かった.
+\section{レポート11.4.4}
+課題11-4.4ではloop関数を制御の基本単位としたプログラミング方針を学んだ.このプログラム方針の輪転を記述せよ.\\
+modeによって状態を遷移するので他の記述部分は見なくてよいので1回のloopにかかる実行速度が短くなる.また,コードも読みやすくわかりやすい.
+
+\section{レポート11.4.5}
+課題11-4-5で作成したプログラムを報告せよ.また,どのような状態遷移を行なったか説明せよ. \\
+
+以下ソースコード\ref{code:kadai5}に作成したプログラムを報告する.
+
+\begin{lstlisting}[caption = 課題11-4.5,label=code:kadai5]
+switch ( mode_G ) {
+   case 0:
+     mode_G = 1;
+     break;  // break文を忘れない（忘れるとその下も実行される）
+
+   case 1:
+     linetrace_P(); // ライントレース（各自で作成）
+     color = identify_RGB(); // ラインの色を推定(R:赤，G:緑，B:青，-:それ以外）
+     if ( color == 'R' ) { // red //一回目の赤
+         mode_G = 2;
+        }
+     break;
+   case 2:
+     linetrace_P();
+     color = identify_RGB();
+     if( color == 'B' ) {
+       mode_G = 3;  
+	  }
+     break;
+   case 3: 
+     linetrace_P(); // ライントレース
+     color = identify_RGB();
+     if ( color == 'R' ) { //２回目も赤だったら
+      startTime = timeNow_G; // mode_G=3に遷移した時刻を記録
+      mode_G = 4;
+      }
+     if ( color == 'G' ) { //2回目が緑だったら
+         green_count++;
+         mode_G = 5;
+     }
+     break;
+    
+   case 4:
+     motorL_G = 100;
+     motorR_G = 100;
+     if ( timeNow_G - startTime > run_period ) // 指定時間経過したら
+      mode_G = 1;
+     break;
+   case 5:
+     linetrace_P();
+     color = identify_RGB();
+     if (color == 'B') {
+       mode_G = 6;
+     }
+     break;
+   case 6:
+     linetrace_P();
+     color = identify_RGB();
+     if( color  == 'G') { //緑だったらカウント
+       green_count++;
+       mode_G=5;
+     }
+     if ( color == 'R') { //赤だったら終了
+       motorL_G = -100;
+       motorR_G = 100;
+       delay(500);
+       mode_G = 7;
+     }
+     break;
+   case 7:
+     color = identify_RGB();
+     motors.setSpeeds(100,100);
+     if( color == 'B') {
+       mode_G = 8;
+      }
+      break;
+    case 8:
+      color = identify_RGB();
+      motors.setSpeeds(100,100);
+      if( color == 'W') {
+        mode_G = 9;
+      }
+      break;
+    case 9:
+      delay(1000);
+      for(int i = 0; i < green_count; i++) {
+        motors.setSpeeds(100, 100); // 直進
+        delay(500);
+        motors.setSpeeds(0, 0); // 停止
+        delay(500);
+      }
+      mode_G = 10;
+      break;
+    case 10:
+      motors.setSpeeds(0,0);
+      break;
+}
+
+\end{lstlisting}
+また,以下図\ref{fig:kadai5}にフローチャート図を示す.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=9.0cm]{images/kadai5.png} 
+\caption{フローチャート図}
+\label{fig:kadai5} 
+\end{center} 
+\end{figure} 
+
+
+\end{document}
